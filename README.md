@@ -2,12 +2,12 @@
 Repo for following the Whonix in KVM workshop
 
 ## Requirements
-* Install instructions tested in Debian Bookworm and Ubuntu 24.04
+* Install instructions tested in Debian Bookworm 
 * User account in sudo group
 ## Resources
-[Whonix KVM](https://www.whonix.org/wiki/KVM)
-[Whonix KVM (onion version)](http://www.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/wiki/KVM)
-[GPG cheat sheet](https://gock.net/blog/2020/gpg-cheat-sheet)
+* [Whonix KVM](https://www.whonix.org/wiki/KVM)
+* [Whonix KVM (onion version)](http://www.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/wiki/KVM)
+* [GPG cheat sheet](https://gock.net/blog/2020/gpg-cheat-sheet)
 ## Installing QEMU/KVM
 Debian bookworm
 ```
@@ -51,7 +51,7 @@ Extract the compressed file:
 tar -xvf Whonix*.libvirt.xz
 ```
 
-Install Whonix:
+Prepare the Whonix networks:
 ```
 sudo virsh -c qemu:///system net-define Whonix_external*.xml
 sudo virsh -c qemu:///system net-define Whonix_internal*.xml
@@ -59,8 +59,16 @@ sudo virsh -c qemu:///system net-autostart Whonix-External
 sudo virsh -c qemu:///system net-start Whonix-External
 sudo virsh -c qemu:///system net-autostart Whonix-Internal
 sudo virsh -c qemu:///system net-start Whonix-Internal
+```
+Define the Whonix virtual machines:
+```
 sudo virsh -c qemu:///system define Whonix-Gateway*.xml
 sudo virsh -c qemu:///system define Whonix-Workstation*.xml
+```
+At this point the machines should be visible in the virt-manager GUI but wouldn't work if started because the disks are not in the correct path.
+
+Place the virtual disk in their path:
+```
 sudo mv Whonix-Gateway*.qcow2 /var/lib/libvirt/images/Whonix-Gateway.qcow2
 sudo mv Whonix-Workstation*.qcow2 /var/lib/libvirt/images/Whonix-Workstation.qcow2
 ```
