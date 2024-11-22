@@ -86,6 +86,3 @@ sudo mkdir /var/lib/libvirt/dnsmasq
 sudo chmod 711 /var/lib/libvirt/dnsmasq
 ```
 Apt not updating because time related issues: [Network Time Synchronization](https://www.whonix.org/wiki/Network_Time_Synchronization)
-```
-
-```
