@@ -8,7 +8,8 @@ Repo for following the Whonix in KVM workshop
 * [Whonix KVM](https://www.whonix.org/wiki/KVM)
 * [Whonix KVM (onion version)](http://www.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion/wiki/KVM)
 * [GPG cheat sheet](https://gock.net/blog/2020/gpg-cheat-sheet)
-## Installing QEMU/KVM
+## Installation steps
+### Installing QEMU/KVM, libvirt and virt-manager
 Debian bookworm
 ```
 sudo apt update
@@ -18,12 +19,12 @@ sudo adduser "$(whoami)" kvm
 sudo systemctl restart libvirtd
 
 ```
-Make sure default network is enabled and started
+Make sure default network is enabled and started. Not needed but useful for other VMs
 ```
 sudo virsh -c qemu:///system net-autostart default
 sudo virsh -c qemu:///system net-start default
 ```
-## Adding Whonix VMs
+### Adding Whonix download, verification and extraction
 Download Whonix VMs, verify and extract
 ```
 wget https://download.whonix.org/libvirt/17.2.3.7/Whonix-Xfce-17.2.3.7.Intel_AMD64.qcow2.libvirt.xz
@@ -50,8 +51,8 @@ Extract the compressed file:
 ```
 tar -xvf Whonix*.libvirt.xz
 ```
-
-Prepare the Whonix networks:
+### Whonix network setup
+Prepare the Whonix networks with the virsh cli:
 ```
 sudo virsh -c qemu:///system net-define Whonix_external*.xml
 sudo virsh -c qemu:///system net-define Whonix_internal*.xml
@@ -60,7 +61,8 @@ sudo virsh -c qemu:///system net-start Whonix-External
 sudo virsh -c qemu:///system net-autostart Whonix-Internal
 sudo virsh -c qemu:///system net-start Whonix-Internal
 ```
-Define the Whonix virtual machines:
+### Whonix VM and disks setup
+Define the Whonix virtual machines with the virsh cli:
 ```
 sudo virsh -c qemu:///system define Whonix-Gateway*.xml
 sudo virsh -c qemu:///system define Whonix-Workstation*.xml
@@ -83,7 +85,7 @@ Fix missing dnsmasq dir when starting VMs:
 sudo mkdir /var/lib/libvirt/dnsmasq
 sudo chmod 711 /var/lib/libvirt/dnsmasq
 ```
-Apt not updating because clock not working:
+Apt not updating because time related issues: [Network Time Synchronization](https://www.whonix.org/wiki/Network_Time_Synchronization)
 ```
 
 ```
