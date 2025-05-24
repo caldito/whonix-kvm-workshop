@@ -19,7 +19,7 @@ sudo adduser "$(whoami)" kvm
 sudo systemctl restart libvirtd
 
 ```
-Make sure default network is enabled and started. Not needed but useful for other VMs
+Make sure default network is enabled and started. Not needed for Whonix but useful for other VMs.
 ```
 sudo virsh -c qemu:///system net-autostart default
 sudo virsh -c qemu:///system net-start default
@@ -27,8 +27,8 @@ sudo virsh -c qemu:///system net-start default
 ### Adding Whonix download, verification and extraction
 Download Whonix VMs, verify and extract
 ```
-wget https://download.whonix.org/libvirt/17.2.3.7/Whonix-Xfce-17.2.3.7.Intel_AMD64.qcow2.libvirt.xz
-wget https://www.whonix.org/download/libvirt/17.2.3.7/Whonix-Xfce-17.2.3.7.Intel_AMD64.qcow2.libvirt.xz.asc
+wget https://www.whonix.org/download/libvirt/17.3.9.9/Whonix-Xfce-17.3.9.9.Intel_AMD64.qcow2.libvirt.xz
+wget https://www.whonix.org/download/libvirt/17.3.9.9/Whonix-Xfce-17.3.9.9.Intel_AMD64.qcow2.libvirt.xz.asc
 wget https://www.whonix.org/keys/derivative.asc
 gpg --import derivative.asc
 gpg --verify-options show-notations --verify Whonix-*.libvirt.xz.asc Whonix-*.libvirt.xz
